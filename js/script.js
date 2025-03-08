@@ -38,13 +38,14 @@ function createPopUp(parent){
     Map.appendChild(popup);
 
 }
-function baseOnLoad {
+function baseOnLoad (){
     var map = document.getElementsByClassName("map")[0];
     var base = document.getElementsByClassName("base")[0];
     maxleft = base.width - 50;
     maxTop = base.Height - 50;
 
-    for(let i = 0, i < 6; i++){
+    
+    for(let i = 0; i < 6; i++){
         let sensor = document.createElement("img");
         sensor.src = img [i%imgs.length];
         sensor.alt = i;
@@ -52,8 +53,8 @@ function baseOnLoad {
         sensor.draggable = true;
         sensor.classList.add("sensor");
         sensor.classList.add("dragme");
-        sensor.style.left = ${Math.floor(Math.random() * 900)}px ;
-        sensor.style.Top = ${Math.floor(Math.random() * 500)}px ;
+        sensor.style.left = `${Math.floor(Math.random() * 900)}px`;
+        sensor.style.top = `${Math.floor(Math.random() * 500)}px`;
         sensor.onclick = sensorClick;
         let paren = document.getElementsByClassName("map")[0];
         parent.appendChild(sensor);
@@ -95,5 +96,17 @@ function startDrag(e){
     }
 
     function stropDrag(){
-        
+        if (typeof drag == 'undefined') return;
+        if(drag){
+            if(Date.now() - timeDelta > 150){
+                let p = document.getElementById('popup');
+                if(p){
+                    p.parentNode.removeChild(p);
+                }
+            }else{
+                targ.style.left = originalX;
+                targ.style.top = originalY;
+            }
+        }
+        drag = false;
     }
